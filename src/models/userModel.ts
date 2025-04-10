@@ -1,13 +1,6 @@
-import mysql from "mysql2/promise";
-
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "",
-});
+import db from '../server/connection'
 
 export async function getAllUsersFromDb() {
-  const [rows] = await pool.execute("SELECT * FROM users");
+  const [rows] = await db.execute("SELECT * FROM users");
   return rows; 
 }
