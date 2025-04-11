@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "test": "jest --runInBand",
     "seed": "node -r ts-node/register src/db/run-seed.ts",
     "dev": "nodemon -r ts-node/register src/server/listen.ts"
