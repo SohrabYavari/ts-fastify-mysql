@@ -1,9 +1,9 @@
 import Fastify from "fastify";
-import { routes } from "../routes/routes";
+import registerRoutes from "../routes/routes";
 
 const server = Fastify({ logger: true });
 
 // Register Routes
-server.register(routes);
+server.register(registerRoutes);
 
 export default server;
