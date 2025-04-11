@@ -3,12 +3,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  uri: process.env.JAWSDB_URL,
-});
+let db: mysql.Pool;
 
-export default db
+if (process.env.JAWSDB_URL) {
+  // Use JawsDB on Heroku
+  db = mysql.createPool(process.env.JAWSDB_URL);
+} else {
+  // Use local .env variables
+  db = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+  });
+}
+
+export default db;
