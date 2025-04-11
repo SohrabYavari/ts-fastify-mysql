@@ -17,7 +17,7 @@ let db: mysql.Pool;
 
 // Log database connection attempt details
 console.log("Database connection attempt:", {
-  usingJawsDB: !!process.env.JAWSDB_URL,
+  // usingJawsDB: !!process.env.JAWSDB_URL,
   hasHost: !!process.env.DB_HOST,
   hasUser: !!process.env.DB_USER,
   hasPassword: !!process.env.DB_PASSWORD,

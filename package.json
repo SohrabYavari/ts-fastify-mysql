@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "heroku-postbuild": "npm run build",
-    "start": "node dist/server/listen.js",
-    "test": "jest --runInBand",
-    "seed": "node -r ts-node/register src/db/run-seed.ts",
-    "dev": "nodemon -r ts-node/register src/server/listen.ts"
-  },
+  "build": "tsc",
+  "heroku-postbuild": "npm run build && npm run seed:prod",
+  "start": "node dist/server/listen.js",
+  "test": "jest --runInBand",
+  "seed": "node -r ts-node/register src/db/run-seed.ts",
+  "seed:prod": "node dist/db/run-seed.js",
+  "dev": "nodemon -r ts-node/register src/server/listen.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
