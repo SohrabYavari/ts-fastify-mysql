@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "dev": "nodemon -r ts-node/register src/server/server.ts"
+    "seed": "node -r ts-node/register src/db/run-seed.ts",
+    "dev": "nodemon -r ts-node/register src/server/listen.ts"
   },
   "keywords": [],
   "author": "",
