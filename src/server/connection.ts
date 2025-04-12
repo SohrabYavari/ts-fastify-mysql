@@ -3,29 +3,22 @@ import dotenv from "dotenv";
 import path from "path";
 
 const ENV = process.env.NODE_ENV || "dev";
-dotenv.config({ path: path.resolve(__dirname, `../../.env.${ENV}`) });
+
+// Only load from dotenv file in development
+if (ENV !== "prod") {
+  dotenv.config({ path: path.resolve(__dirname, `../../.env.${ENV}`) });
+}
 
 let config: any;
 
-if (ENV === "prod") {
-  const jawsUrl = process.env.JAWSDB_URL;
-  if (!jawsUrl) {
-    throw new Error("JAWSDB_URL is not defined!");
-  }
-
-  const dbUrl = new URL(jawsUrl);
+// Always check for JAWSDB_URL first (Heroku-provided)
+if (ENV === 'prod') {
   config = {
-    host: dbUrl.hostname,
-    user: dbUrl.username,
-    password: dbUrl.password,
-    database: dbUrl.pathname.slice(1),
-    port: Number(dbUrl.port),
+    databaseUrl: process.env.JAWSDB_URL,
   };
-} else {
-  if (!process.env.DB_DATABASE) {
-    throw new Error("DB_DATABASE is not defined!");
-  }
-
+  console.log(`Connected to ${config.databaseUrl} via JAWSDB_URL (${ENV})`);
+} else if (process.env.DB_DATABASE) {
+  // Fallback to individual environment variables
   config = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -33,10 +26,10 @@ if (ENV === "prod") {
     database: process.env.DB_DATABASE,
     port: Number(process.env.DB_PORT),
   };
+  console.log(`Connected to ${config.database} via individual config (${ENV})`);
+} else {
+  throw new Error("No database configuration found. Set JAWSDB_URL or individual DB_* variables.");
 }
-
-// ✅ Now config is defined
-console.log(`Connected to ${config.database} (${ENV})`);
 
 const db = mysql.createPool(config);
 
