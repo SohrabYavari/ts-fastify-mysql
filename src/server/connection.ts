@@ -12,12 +12,11 @@ let config: any = {};
 if (ENV === "prod" && process.env.JAWSDB_URL) {
   const dbUrl = new URL(process.env.JAWSDB_URL);
   config = {
+    host: dbUrl.hostname,
+    user: dbUrl.username,
+    password: dbUrl.password,
     database: dbUrl.pathname.replace("/", ""),
-    // host: process.env.DB_HOST,
-    // user: process.env.DB_USER,
-    // password: process.env.DB_PASSWORD,
-    // port: process.env.DB_PORT,
-    // database: process.env.DB_DATABASE,
+    port: Number(dbUrl.port),
   };
 } else {
   config = {

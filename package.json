@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
   "build": "tsc",
-  "heroku-postbuild": "npm run build && npm run seed-prod",
+  "heroku-postbuild": "npm run build",
   "start": "node dist/server/listen.js",
   "test": "jest --runInBand",
   "seed": "node -r ts-node/register src/db/run-seed.ts",
