@@ -21,7 +21,7 @@ export async function fetchEvents() {
     console.log(
       `Successfully fetched ${Array.isArray(rows) ? rows.length : 0} events`
     );
-    return [rows];
+    return rows;
   } catch (error) {
     console.error("Error fetching events:", error);
     throw error; // Re-throw to handle in controller

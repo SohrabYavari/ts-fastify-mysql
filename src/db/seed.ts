@@ -1,10 +1,10 @@
 import db from "../server/connection";
 
 const seed = async () => {
-  await db.execute(`DROP TABLE IF EXISTS events`);
-  await db.execute(`DROP TABLE IF EXISTS users`);
+  await db.query(`DROP TABLE IF EXISTS events`);
+  await db.query(`DROP TABLE IF EXISTS users`);
 
-  await db.execute(`
+  await db.query(`
     CREATE TABLE users (
       user_id INT AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(255) NOT NULL,
@@ -13,7 +13,7 @@ const seed = async () => {
     );
   `);
   
-  await db.execute(`
+  await db.query(`
     CREATE TABLE events (
       event_id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ const seed = async () => {
     );
   `);
 
-  await db.execute(`
+  await db.query(`
     INSERT INTO users (username, email, password) 
     VALUES 
       ('sam', 'sam@legitemail.com', 'verySecurePassword'),
@@ -37,7 +37,7 @@ const seed = async () => {
       ('connor', 'connor@legitemail.com', 'verySecurePassword2')
   `);
 
-  await db.execute(`
+  await db.query(`
     INSERT INTO events (title, description, date, location, created_by, invited)
     VALUES (
       'Northcoders Graduation',

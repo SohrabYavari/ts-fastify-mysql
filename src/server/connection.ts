@@ -26,7 +26,7 @@ if (ENV === "prod") {
   };
 }
 
-const db = mysql.createConnection(config);
+const db = mysql.createPool(config);
 
 if (!process.env.DB_DATABASE && !process.env.JAWSDB_URL) {
   throw new Error("No Database & Database connection set!");
