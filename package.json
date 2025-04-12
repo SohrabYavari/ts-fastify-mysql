@@ -8,7 +8,7 @@
   "start": "node dist/server/listen.js",
   "test": "jest --runInBand",
   "seed": "node -r ts-node/register src/db/run-seed.ts",
-  "seed:prod": "node dist/db/run-seed.js",
+  "seed-prod": "NODE_ENV=prod node dist/db/run-seed.js",
   "dev": "nodemon -r ts-node/register src/server/listen.ts"
 },
   "keywords": [],

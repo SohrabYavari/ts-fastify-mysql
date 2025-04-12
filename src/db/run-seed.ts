@@ -4,7 +4,7 @@ import db from '../server/connection'
 
 const runSeed = async () => {
   await seed();
-    return db.end();
+    return (await db).end();
 };
 
 runSeed();
