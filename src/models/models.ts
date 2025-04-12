@@ -3,7 +3,7 @@ import db from "../server/connection";
 export async function fetchUsers() {
   try {
     console.log("Attempting to fetch users from database");
-    const [rows] = await (await db).execute("SELECT * FROM users");
+    const [rows] = await (await db).query("SELECT * FROM users");
     console.log(
       `Successfully fetched ${Array.isArray(rows) ? rows.length : 0} users`
     );
@@ -17,7 +17,7 @@ export async function fetchUsers() {
 export async function fetchEvents() {
   try {
     console.log("Attempting to fetch events from database");
-    const [rows] = await (await db).execute("SELECT * FROM events");
+    const [rows] = await (await db).query("SELECT * FROM events");
     console.log(
       `Successfully fetched ${Array.isArray(rows) ? rows.length : 0} events`
     );
