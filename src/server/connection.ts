@@ -12,11 +12,16 @@ if (ENV !== "prod") {
 let config: any;
 
 // Always check for JAWSDB_URL first (Heroku-provided)
-if (ENV === 'prod') {
+if (process.env.JAWSDB_URL) {
+  const dbUrl = new URL(process.env.JAWSDB_URL);
   config = {
-    databaseUrl: process.env.JAWSDB_URL,
+    host: dbUrl.hostname,
+    user: dbUrl.username,
+    password: dbUrl.password,
+    database: dbUrl.pathname.slice(1),
+    port: Number(dbUrl.port),
   };
-  console.log(`Connected to ${config.databaseUrl} via JAWSDB_URL (${ENV})`);
+  console.log(`Connected to ${config.database} via JAWSDB_URL (${ENV})`);
 } else if (process.env.DB_DATABASE) {
   // Fallback to individual environment variables
   config = {
