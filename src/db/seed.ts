@@ -12,7 +12,7 @@ const seed = async () => {
       password VARCHAR(255) NOT NULL
     );
   `);
-  
+
   await db.query(`
     CREATE TABLE events (
       event_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,16 +41,11 @@ const seed = async () => {
 
   await db.query(`
     INSERT INTO events (title, description, date, location, created_by, invited, host_flaked, invitee_flaked)
-    VALUES (
-      'Northcoders Graduation',
-      'drinks and snacks',
-      '2025-04-11 18:00:00',
-      'Manchester',
-      1,
-      4,
-      0,
-      0
-    )
+    VALUES 
+    ('Northcoders Graduation', 'drinks and snacks', '2025-04-11 18:00:00', 'Manchester', 1, 4, 0, 0 ),
+    ('big sesh', 'zoots and scoots', '2025-04-11 18:00:00', 'London', 2, 3, 1, 0),
+    ('Minecraft LAN party', 'blocks and doritos', '2025-04-11 18:00:00', 'Your house', 3, 4, 0, 1),
+    ('small gig', 'ket and alcohol', '2025-04-11 18:00:00', 'a random basement somewhere', 2, 1, 1, 1)
   `);
 };
 
