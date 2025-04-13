@@ -1,10 +1,13 @@
-import db from "../server/connection";
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const connection_1 = __importDefault(require("../server/connection"));
 const seed = async () => {
-  await db.query(`DROP TABLE IF EXISTS events`);
-  await db.query(`DROP TABLE IF EXISTS users`);
-
-  await db.query(`
+    await connection_1.default.query(`DROP TABLE IF EXISTS events`);
+    await connection_1.default.query(`DROP TABLE IF EXISTS users`);
+    await connection_1.default.query(`
     CREATE TABLE users (
       user_id INT AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(255) NOT NULL,
@@ -12,8 +15,7 @@ const seed = async () => {
       password VARCHAR(255) NOT NULL
     );
   `);
-  
-  await db.query(`
+    await connection_1.default.query(`
     CREATE TABLE events (
       event_id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(100) NOT NULL,
@@ -28,8 +30,7 @@ const seed = async () => {
       FOREIGN KEY (invited) REFERENCES users(user_id)
     );
   `);
-
-  await db.query(`
+    await connection_1.default.query(`
     INSERT INTO users (username, email, password) 
     VALUES 
       ('sam', 'sam@legitemail.com', 'verySecurePassword'),
@@ -38,8 +39,7 @@ const seed = async () => {
       ('steph', 'steph@legitemail.com', 'verySecurePassword4'),
       ('connor', 'connor@legitemail.com', 'verySecurePassword2')
   `);
-
-  await db.query(`
+    await connection_1.default.query(`
     INSERT INTO events (title, description, date, location, created_by, invited, host_flaked, invitee_flaked)
     VALUES (
       'Northcoders Graduation',
@@ -53,5 +53,4 @@ const seed = async () => {
     )
   `);
 };
-
-export default seed;
+exports.default = seed;
