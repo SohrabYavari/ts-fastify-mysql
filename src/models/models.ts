@@ -21,10 +21,22 @@ export async function fetchEvents() {
 }
 
 
-export async function patchEvents() {
+export async function inviteeFlaked() {
   try {
-    
+    const flaked = await db.query(`UPDATE events SET invitee_flaked = 1`)
+    return flaked
   } catch (error) {
     console.error('Error patching event details')
   }
 }
+
+
+export async function hostFlaked() {
+  try {
+    const flaked = await db.query(`UPDATE events SET host_flaked = 1`)
+    return flaked
+  } catch (error) {
+    console.error('Error patching event details')
+  }
+}
+
