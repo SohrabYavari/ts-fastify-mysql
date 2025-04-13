@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { fetchUsers, fetchEvents } from "../models/models";
+import { fetchUsers, fetchEvents, inviteeFlaked, hostFlaked, fetchSpecificEvent } from "../models/models";
 
 export async function getAllUsers(
   request: FastifyRequest,
@@ -34,4 +34,36 @@ export async function getAllEvents(
   } catch (err) {
     return reply.status(500).send({ message: "Internal Server Error" });
   }
+}
+
+
+interface EventParams {
+  eventId: number;
+}
+
+export async function getEvent(
+  request: FastifyRequest<{ Params: EventParams }>,
+  reply: FastifyReply
+) {
+  const { eventId } = request.params;
+  const event = await fetchSpecificEvent(eventId);
+  return reply.send({event});
+}
+
+export async function markInviteeFlaked(
+  request: FastifyRequest<{ Params: EventParams }>,
+  reply: FastifyReply
+) {
+  const { eventId } = request.params;
+  const result = await inviteeFlaked(eventId);
+  return reply.code(200).send({ success: true, data: result });
+}
+
+export async function markHostFlaked(
+  request: FastifyRequest<{ Params: EventParams }>,
+  reply: FastifyReply
+) {
+  const { eventId } = request.params;
+  const result = await hostFlaked(eventId);
+  return reply.code(200).send({ success: true, data: result });
 }
